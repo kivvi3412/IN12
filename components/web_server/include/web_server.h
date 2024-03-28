@@ -10,6 +10,7 @@
 #include "freertos/task.h"
 #include "esp_log.h"
 #include "esp_http_server.h"
+#include <sys/param.h>
 
 
 #include "nvs_module.h"
