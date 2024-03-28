@@ -5,7 +5,7 @@
 #include "nvs_module.h"
 
 // 初始化NVS, 用于保存WiFi配置
-esp_err_t init_nvs() {
+esp_err_t NVSModule::init_nvs() {
     esp_err_t err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());
@@ -15,7 +15,7 @@ esp_err_t init_nvs() {
 }
 
 // 用于保存WIFI结构体
-esp_err_t save_wifi_config(const wifi_config_t *wifi_config) {
+esp_err_t NVSModule::save_wifi_config(const wifi_config_t *wifi_config) {
     nvs_handle_t nvs_handle;
     esp_err_t err = nvs_open("wifi_config", NVS_READWRITE, &nvs_handle);
     if (err != ESP_OK) {
@@ -32,7 +32,7 @@ esp_err_t save_wifi_config(const wifi_config_t *wifi_config) {
 }
 
 // 用于加载WIFI结构体
-esp_err_t load_wifi_config(wifi_config_t *wifi_config) {
+esp_err_t NVSModule::load_wifi_config(wifi_config_t *wifi_config) {
     nvs_handle_t nvs_handle;
     esp_err_t err = nvs_open("wifi_config", NVS_READONLY, &nvs_handle);
     if (err != ESP_OK) {

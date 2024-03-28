@@ -18,7 +18,7 @@ set(HEAD_HASH)
 file(READ "/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
 
 string(STRIP "${HEAD_CONTENTS}" HEAD_CONTENTS)
-set(GIT_DIR "/Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/.git")
+set(GIT_DIR "/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/.git")
 # handle git-worktree
 if(EXISTS "${GIT_DIR}/commondir")
 	file(READ "${GIT_DIR}/commondir" GIT_DIR_NEW LIMIT 1024)

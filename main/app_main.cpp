@@ -4,11 +4,12 @@
 
 
 extern "C" void app_main() {
-    ESP_ERROR_CHECK(init_nvs()); // 初始化NVS
+    // 初始化NVS
+    NVSModule::init_nvs();
     // 初始化wifi
-    wifi_init();
+    WifiModule::init();
     // Start the web server
-    start_webserver();
+    WebServer::start();
 }
 
 

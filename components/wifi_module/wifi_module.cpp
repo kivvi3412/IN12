@@ -8,8 +8,7 @@
 static const char *TAG = "wifi_module";
 
 
-static void wifi_event_handler(void *arg, esp_event_base_t event_base,
-                               int32_t event_id, void *event_data) {
+static void wifiEventHandler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
     if (event_id == WIFI_EVENT_AP_STACONNECTED) {   // 有设备连接
         auto event = (wifi_event_ap_staconnected_t *) event_data;
         ESP_LOGI(TAG, "station " MACSTR " join, AID=%d", MAC2STR(event->mac), event->aid);
@@ -24,7 +23,7 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
     }
 }
 
-static void wifi_init_ap() {
+static void wifiInitAp() {
     wifi_config_t wifi_config = {
             .ap = {
                     .ssid = EXAMPLE_ESP_AP_WIFI_SSID,
@@ -32,7 +31,7 @@ static void wifi_init_ap() {
                     .ssid_len = static_cast<uint8_t>(strlen(EXAMPLE_ESP_AP_WIFI_SSID)),
                     .channel = EXAMPLE_ESP_AP_WIFI_CHANNEL,
                     .authmode = WIFI_AUTH_WPA2_PSK,
-                    .max_connection = EXAMPLE_MAX_STA_CONN
+                    .max_connection = EXAMPLE_MAX_STA_CONN,
             },
     };
 
@@ -51,10 +50,10 @@ static void wifi_init_ap() {
     ESP_ERROR_CHECK(esp_netif_dhcps_start(netif));
 }
 
-static void wifi_init_sta() {
+static void wifiInitSta() {
     // 从NVS中加载WIFI配置
     wifi_config_t wifi_config;
-    ESP_ERROR_CHECK(load_wifi_config(&wifi_config));
+    ESP_ERROR_CHECK(NVSModule::load_wifi_config(&wifi_config));
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_APSTA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
@@ -63,21 +62,8 @@ static void wifi_init_sta() {
     esp_wifi_connect();
 }
 
-// 重新连接WIFI
-void wifi_reconnect() {
-    ESP_ERROR_CHECK(esp_wifi_disconnect());
-
-    // 从NVS中加载Wi-Fi配置
-    wifi_config_t wifi_config;
-    ESP_ERROR_CHECK(load_wifi_config(&wifi_config));
-
-    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
-
-    esp_wifi_connect();
-}
-
 // 内网做域名解析
-void initialise_mdns() {
+static void initMdns() {
     mdns_init();
     mdns_hostname_set("IN12");
     mdns_instance_name_set("IN12 mDNS");
@@ -91,7 +77,7 @@ void initialise_mdns() {
                                      sizeof(serviceTxtData) / sizeof(serviceTxtData[0])));
 }
 
-void wifi_init() {
+void WifiModule::init() {
     ESP_ERROR_CHECK(esp_netif_init());  // 初始化网络接口
     ESP_ERROR_CHECK(esp_event_loop_create_default()); // WIFI事件循环
 
@@ -105,22 +91,32 @@ void wifi_init() {
     // 注册事件处理程序
     ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,
                                                         ESP_EVENT_ANY_ID,
-                                                        &wifi_event_handler,
+                                                        &wifiEventHandler,
                                                         nullptr,
                                                         nullptr));
 
     ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT,
                                                         IP_EVENT_STA_GOT_IP,
-                                                        &wifi_event_handler,
+                                                        &wifiEventHandler,
                                                         nullptr,
                                                         nullptr));
 
     // 初始化热点模式
-    wifi_init_ap();
-
+    wifiInitAp();
     // 初始化STA模式
-    wifi_init_sta();
-
+    wifiInitSta();
     // 初始化mDNS
-    initialise_mdns();
+    initMdns();
+}
+
+// 重新连接WIFI
+void WifiModule::staReconnect() {
+    ESP_ERROR_CHECK(esp_wifi_disconnect());
+
+    // 从NVS中加载Wi-Fi配置
+    wifi_config_t wifi_config;
+    ESP_ERROR_CHECK(NVSModule::load_wifi_config(&wifi_config));
+    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
+
+    esp_wifi_connect();
 }

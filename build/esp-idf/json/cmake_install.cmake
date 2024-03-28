@@ -1,4 +1,4 @@
-# Install script for directory: /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/json
+# Install script for directory: /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/json
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

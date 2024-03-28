@@ -13,13 +13,13 @@
 #include <sys/param.h>
 
 
-
 #include "nvs_module.h"
-#include "cJSON.h"
 #include "wifi_module.h"
 
-// 初始化网页服务器
-httpd_handle_t start_webserver();
+class WebServer {
+public:
+    static httpd_handle_t start();
+};
 
 
 #endif //ESP_TEST_WEB_SERVER_H

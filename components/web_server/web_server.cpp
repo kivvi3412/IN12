@@ -91,7 +91,7 @@ static esp_err_t save_wifi_config_post_handler(httpd_req_t *req) {
 
     ssid_start += 5;  // Skip "ssid="
     char *ssid_end = strchr(ssid_start, '&');
-    if (ssid_end == NULL) {
+    if (ssid_end == nullptr) {
         ssid_end = buf + req->content_len;  // SSID is at the end of the content
     }
     strncpy(ssid, ssid_start, MIN(sizeof(ssid) - 1, ssid_end - ssid_start));
@@ -112,7 +112,7 @@ static esp_err_t save_wifi_config_post_handler(httpd_req_t *req) {
     strncpy((char *)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid) - 1);
     strncpy((char *)wifi_config.sta.password, password, sizeof(wifi_config.sta.password) - 1);
 
-    esp_err_t err = save_wifi_config(&wifi_config);
+    esp_err_t err = NVSModule::save_wifi_config(&wifi_config);
     if (err != ESP_OK) {
         httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Failed to save WiFi config");
         return ESP_FAIL;
@@ -120,13 +120,13 @@ static esp_err_t save_wifi_config_post_handler(httpd_req_t *req) {
 
     // Print the saved configuration
     wifi_config_t loaded_wifi_config;
-    load_wifi_config(&loaded_wifi_config);
+    NVSModule::load_wifi_config(&loaded_wifi_config);
     ESP_LOGI(webserver_TAG, "Saved WiFi config: SSID: %s, Password: %s", loaded_wifi_config.sta.ssid,
              loaded_wifi_config.sta.password);
 
     httpd_resp_sendstr(req, "WiFi configuration saved successfully");
-    // wifi module 的重新连接
-    wifi_reconnect();
+    // STA 的重新连接
+    WifiModule::staReconnect();
     return ESP_OK;
 }
 
@@ -142,7 +142,7 @@ static const httpd_uri_t save_wifi_config_uri_post = {
         .handler = save_wifi_config_post_handler
 };
 
-httpd_handle_t start_webserver() {
+httpd_handle_t WebServer::start() {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     config.server_port = 80;
     httpd_handle_t server = nullptr;

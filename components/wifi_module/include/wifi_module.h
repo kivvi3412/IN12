@@ -1,7 +1,3 @@
-//
-// Created by HAIRONG ZHU on 2024/3/27.
-//
-
 #ifndef ESP_TEST_WIFI_MODULE_H
 #define ESP_TEST_WIFI_MODULE_H
 
@@ -13,15 +9,23 @@
 
 #include "nvs_module.h"
 
-#define EXAMPLE_ESP_STA_WIFI_SSID      "AirPort-5G"
-#define EXAMPLE_ESP_STA_WIFI_PASS      "###732###"
 #define EXAMPLE_ESP_AP_WIFI_SSID       "IN12"
 #define EXAMPLE_ESP_AP_WIFI_PASS       "12345678"
 #define EXAMPLE_ESP_AP_WIFI_CHANNEL    1
 #define EXAMPLE_MAX_STA_CONN           4
 
-void wifi_init();
 
-void wifi_reconnect();
+class WifiModule {
+public:
+    /**
+     * @brief 初始化WiFi
+     */
+    static void init();
 
-#endif //ESP_TEST_WIFI_MODULE_H
+    /**
+     * @brief 重新连接WiFi
+     */
+    static void staReconnect();
+};
+
+#endif // ESP_TEST_WIFI_MODULE_H
