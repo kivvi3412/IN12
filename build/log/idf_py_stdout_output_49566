@@ -1,0 +1,137 @@
+[1/15] Linking C static library esp-idf/esp_http_client/libesp_http_client.a
+[2/15] Performing build step for 'bootloader'
+[1/1] cd /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/bootloader/esp-idf/esptool_py && /Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/bootloader/bootloader.bin
+Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.
+[3/15] No install step for 'bootloader'
+[4/15] Completed 'bootloader'
+[5/15] Linking C static library esp-idf/esp_adc/libesp_adc.a
+[6/15] Linking C static library esp-idf/soc/libsoc.a
+[7/15] Linking C static library esp-idf/heap/libheap.a
+[8/15] Linking C static library esp-idf/app_trace/libapp_trace.a
+[9/15] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/test0.cpp.obj
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:72:1: warning: missing initializer for member 'httpd_uri::user_ctx' [-Wmissing-field-initializers]
+   72 | };
+      | ^
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:78:1: warning: missing initializer for member 'httpd_uri::user_ctx' [-Wmissing-field-initializers]
+   78 | };
+      | ^
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp: In function 'void wifi_init_softap()':
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:148:5: warning: missing initializer for member 'wifi_ap_config_t::ssid_hidden' [-Wmissing-field-initializers]
+  148 |     };
+      |     ^
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:148:5: warning: missing initializer for member 'wifi_ap_config_t::beacon_interval' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:148:5: warning: missing initializer for member 'wifi_ap_config_t::pairwise_cipher' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:148:5: warning: missing initializer for member 'wifi_ap_config_t::ftm_responder' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:148:5: warning: missing initializer for member 'wifi_ap_config_t::pmf_cfg' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:148:5: warning: missing initializer for member 'wifi_ap_config_t::sae_pwe_h2e' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp: In function 'void wifi_init_sta()':
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::scan_method' [-Wmissing-field-initializers]
+  171 |     };
+      |     ^
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::bssid_set' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::bssid' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::channel' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::listen_interval' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::sort_method' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::threshold' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::pmf_cfg' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::rm_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::btm_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::mbo_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::ft_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::owe_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::transition_disable' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::reserved' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::sae_pwe_h2e' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::sae_pk_mode' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::failure_retry_cnt' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_dcm_set' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_dcm_max_constellation_tx' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_dcm_max_constellation_rx' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_mcs9_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_su_beamformee_disabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_trig_su_bmforming_feedback_disabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_trig_mu_bmforming_partial_feedback_disabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_trig_cqi_feedback_disabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::he_reserved' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:171:5: warning: missing initializer for member 'wifi_sta_config_t::sae_h2e_identifier' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp: In function 'void app_main()':
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main/test0.cpp:181:27: warning: variable 'ap_server' set but not used [-Wunused-but-set-variable]
+  181 |     static httpd_handle_t ap_server = NULL;
+      |                           ^~~~~~~~~
+[10/15] Linking C static library esp-idf/main/libmain.a
+[11/15] Generating ld/sections.ld
+[12/15] Linking CXX executable ESP_Test.elf
+[13/15] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/ESP_Test.bin
+[14/15] cd /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/esp-idf/esptool_py && /Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/partition_table/partition-table.bin /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/ESP_Test.bin
+ESP_Test.bin binary size 0xcf620 bytes. Smallest app partition is 0x100000 bytes. 0x309e0 bytes (19%) free.
+[14/15] cd /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py && /opt/homebrew/Cellar/cmake/3.29.0/bin/cmake -D IDF_PATH=/Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf -D "SERIAL_TOOL=/Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python;;/Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build -P /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool.py --chip esp32 -p /dev/cu.usbserial-0001 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 ESP_Test.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.7.0
+Serial port /dev/cu.usbserial-0001
+Connecting.....
+Chip is ESP32-D0WD-V3 (revision v3.0)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: a8:42:e3:90:af:c4
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000dffff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26720 bytes to 16358...
+Writing at 0x00001000... (100 %)
+Wrote 26720 bytes (16358 compressed) at 0x00001000 in 0.9 seconds (effective 238.2 kbit/s)...
+Hash of data verified.
+Compressed 849440 bytes to 533709...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001d222... (6 %)
+Writing at 0x0002686f... (9 %)
+Writing at 0x0002b39f... (12 %)
+Writing at 0x00035084... (15 %)
+Writing at 0x0003ccdd... (18 %)
+Writing at 0x00042839... (21 %)
+Writing at 0x00048197... (24 %)
+Writing at 0x0004daab... (27 %)
+Writing at 0x0005366f... (30 %)
+Writing at 0x00058ec4... (33 %)
+Writing at 0x0005ea6f... (36 %)
+Writing at 0x0006475b... (39 %)
+Writing at 0x0006a2bf... (42 %)
+Writing at 0x00070114... (45 %)
+Writing at 0x00075ce7... (48 %)
+Writing at 0x0007aee0... (51 %)
+Writing at 0x0008034e... (54 %)
+Writing at 0x000858ce... (57 %)
+Writing at 0x0008acc4... (60 %)
+Writing at 0x0009033f... (63 %)
+Writing at 0x00095b91... (66 %)
+Writing at 0x0009b924... (69 %)
+Writing at 0x000a1197... (72 %)
+Writing at 0x000a6f70... (75 %)
+Writing at 0x000ad614... (78 %)
+Writing at 0x000b39bb... (81 %)
+Writing at 0x000b9107... (84 %)
+Writing at 0x000c2615... (87 %)
+Writing at 0x000cabd9... (90 %)
+Writing at 0x000d083c... (93 %)
+Writing at 0x000d6bcd... (96 %)
+Writing at 0x000dc1d7... (100 %)
+Wrote 849440 bytes (533709 compressed) at 0x00010000 in 12.8 seconds (effective 529.2 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 256.1 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

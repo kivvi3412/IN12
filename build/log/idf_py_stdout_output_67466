@@ -1,0 +1,174 @@
+[0/1] Re-running CMake...
+-- git rev-parse returned 'fatal: not a git repository (or any of the parent directories): .git'
+-- Could not use 'git describe' to determine PROJECT_VER.
+-- Building ESP-IDF components for target esp32
+Processing 2 dependencies:
+[1/2] espressif/mdns (1.2.5)
+[2/2] idf (5.2.1)
+-- Project sdkconfig file /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/sdkconfig
+-- Compiler supported targets: xtensa-esp-elf
+-- App "ESP_Test" version: 1
+-- Adding linker script /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_system/ld/esp32/sections.ld.in
+-- Adding linker script /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-data.ld
+-- Adding linker script /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_rom/esp32/ld/esp32.rom.syscalls.ld
+-- Adding linker script /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/soc/esp32/ld/esp32.peripherals.ld
+-- Components: app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_bootloader_format esp_coex esp_common esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_wifi espcoredump espressif__mdns esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json log lwip main mbedtls mqtt newlib nvs_flash nvs_module nvs_sec_provider openthread partition_table perfmon protobuf-c protocomm pthread sdmmc soc spi_flash spiffs tcp_transport ulp unity usb vfs wear_levelling web_server wifi_module wifi_provisioning wpa_supplicant xtensa
+-- Component paths: /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/app_trace /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/app_update /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/bootloader /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/bootloader_support /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/bt /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/cmock /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/console /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/cxx /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/driver /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/efuse /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp-tls /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_adc /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_app_format /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_bootloader_format /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_coex /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_common /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_eth /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_event /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_gdbstub /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_hid /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_http_client /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_http_server /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_https_ota /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_https_server /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_hw_support /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_lcd /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_local_ctrl /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_mm /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_netif /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_netif_stack /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_partition /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_phy /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_pm /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_psram /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_ringbuf /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_rom /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_system /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_timer /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esp_wifi /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/espcoredump /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/managed_components/espressif__mdns /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/fatfs /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/freertos /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/hal /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/heap /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/http_parser /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/idf_test /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/ieee802154 /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/json /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/log /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/lwip /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/main /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/mbedtls /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/mqtt /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/newlib /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/nvs_flash /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/nvs_module /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/nvs_sec_provider /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/openthread /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/partition_table /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/perfmon /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/protobuf-c /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/protocomm /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/pthread /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/sdmmc /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/soc /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/spi_flash /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/spiffs /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/tcp_transport /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/ulp /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/unity /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/usb /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/vfs /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/wear_levelling /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/web_server /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/wifi_provisioning /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/wpa_supplicant /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/xtensa
+-- Configuring done (3.4s)
+-- Generating done (0.3s)
+-- Build files have been written to: /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build
+[1/32] Performing build step for 'bootloader'
+[1/1] cd /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/bootloader/esp-idf/esptool_py && /Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/bootloader/bootloader.bin
+Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.
+[2/32] No install step for 'bootloader'
+[3/32] Completed 'bootloader'
+[4/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/wifi_ctrl.c.obj
+[5/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/scheme_console.c.obj
+[6/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/proto-c/wifi_ctrl.pb-c.c.obj
+[7/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/handlers.c.obj
+[8/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/wifi_config.c.obj
+[9/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/wifi_scan.c.obj
+[10/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/proto-c/wifi_config.pb-c.c.obj
+[11/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/proto-c/wifi_constants.pb-c.c.obj
+[12/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/proto-c/wifi_scan.pb-c.c.obj
+[13/32] Building C object esp-idf/json/CMakeFiles/__idf_json.dir/cJSON/cJSON_Utils.c.obj
+[14/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/scheme_softap.c.obj
+[15/32] Building CXX object esp-idf/nvs_module/CMakeFiles/__idf_nvs_module.dir/nvs_module.cpp.obj
+[16/32] Building C object esp-idf/json/CMakeFiles/__idf_json.dir/cJSON/cJSON.c.obj
+[17/32] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/manager.c.obj
+[18/32] Building CXX object esp-idf/web_server/CMakeFiles/__idf_web_server.dir/web_server.cpp.obj
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/web_server/web_server.cpp:81:1: warning: missing initializer for member 'httpd_uri::user_ctx' [-Wmissing-field-initializers]
+   81 | };
+      | ^
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/web_server/web_server.cpp:87:1: warning: missing initializer for member 'httpd_uri::user_ctx' [-Wmissing-field-initializers]
+   87 | };
+      | ^
+[19/32] Building CXX object esp-idf/wifi_module/CMakeFiles/__idf_wifi_module.dir/wifi_module.cpp.obj
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp: In function 'void wifi_init_ap()':
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:37:5: warning: missing initializer for member 'wifi_ap_config_t::ssid_hidden' [-Wmissing-field-initializers]
+   37 |     };
+      |     ^
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:37:5: warning: missing initializer for member 'wifi_ap_config_t::beacon_interval' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:37:5: warning: missing initializer for member 'wifi_ap_config_t::pairwise_cipher' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:37:5: warning: missing initializer for member 'wifi_ap_config_t::ftm_responder' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:37:5: warning: missing initializer for member 'wifi_ap_config_t::pmf_cfg' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:37:5: warning: missing initializer for member 'wifi_ap_config_t::sae_pwe_h2e' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp: In function 'void wifi_init_sta()':
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::scan_method' [-Wmissing-field-initializers]
+   60 |     };
+      |     ^
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::bssid_set' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::bssid' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::channel' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::listen_interval' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::sort_method' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::threshold' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::pmf_cfg' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::rm_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::btm_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::mbo_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::ft_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::owe_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::transition_disable' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::reserved' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::sae_pwe_h2e' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::sae_pk_mode' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::failure_retry_cnt' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_dcm_set' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_dcm_max_constellation_tx' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_dcm_max_constellation_rx' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_mcs9_enabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_su_beamformee_disabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_trig_su_bmforming_feedback_disabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_trig_mu_bmforming_partial_feedback_disabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_trig_cqi_feedback_disabled' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::he_reserved' [-Wmissing-field-initializers]
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/wifi_module/wifi_module.cpp:60:5: warning: missing initializer for member 'wifi_sta_config_t::sae_h2e_identifier' [-Wmissing-field-initializers]
+[20/32] Linking C static library esp-idf/nvs_module/libnvs_module.a
+[21/32] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/app_main.cpp.obj
+[22/32] Linking C static library esp-idf/json/libjson.a
+[23/32] Linking C static library esp-idf/wifi_module/libwifi_module.a
+[24/32] Linking C static library esp-idf/web_server/libweb_server.a
+[25/32] Linking C static library esp-idf/wifi_provisioning/libwifi_provisioning.a
+[26/32] Linking C static library esp-idf/main/libmain.a
+[27/32] Generating ld/sections.ld
+[28/32] Building C object CMakeFiles/ESP_Test.elf.dir/project_elf_src_esp32.c.obj
+[29/32] Linking CXX executable ESP_Test.elf
+[30/32] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/ESP_Test.bin
+[31/32] cd /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/esp-idf/esptool_py && /Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/partition_table/partition-table.bin /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/ESP_Test.bin
+ESP_Test.bin binary size 0xd19e0 bytes. Smallest app partition is 0x100000 bytes. 0x2e620 bytes (18%) free.
+[31/32] cd /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py && /opt/homebrew/Cellar/cmake/3.29.0/bin/cmake -D IDF_PATH=/Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf -D "SERIAL_TOOL=/Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python;;/Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build -P /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool.py --chip esp32 -p /dev/cu.usbserial-0001 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 ESP_Test.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.7.0
+Serial port /dev/cu.usbserial-0001
+Connecting....
+Chip is ESP32-D0WD-V3 (revision v3.0)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: a8:42:e3:90:af:c4
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000e1fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26720 bytes to 16358...
+Writing at 0x00001000... (100 %)
+Wrote 26720 bytes (16358 compressed) at 0x00001000 in 0.9 seconds (effective 240.7 kbit/s)...
+Hash of data verified.
+Compressed 858592 bytes to 540296...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001d04b... (6 %)
+Writing at 0x00026782... (9 %)
+Writing at 0x0002b4b8... (12 %)
+Writing at 0x00035121... (15 %)
+Writing at 0x0003cd5d... (18 %)
+Writing at 0x000428c3... (21 %)
+Writing at 0x00048240... (24 %)
+Writing at 0x0004db83... (27 %)
+Writing at 0x000536f8... (30 %)
+Writing at 0x00059050... (33 %)
+Writing at 0x0005ec45... (36 %)
+Writing at 0x0006486c... (39 %)
+Writing at 0x0006a3b4... (42 %)
+Writing at 0x00070298... (45 %)
+Writing at 0x00075e97... (48 %)
+Writing at 0x0007b13c... (51 %)
+Writing at 0x00080581... (54 %)
+Writing at 0x00085add... (57 %)
+Writing at 0x0008ae62... (60 %)
+Writing at 0x000904b6... (63 %)
+Writing at 0x00095d7e... (66 %)
+Writing at 0x0009bad9... (69 %)
+Writing at 0x000a1295... (72 %)
+Writing at 0x000a70c8... (75 %)
+Writing at 0x000ad78f... (78 %)
+Writing at 0x000b3a4d... (81 %)
+Writing at 0x000b9271... (84 %)
+Writing at 0x000be81d... (87 %)
+Writing at 0x000ca3c9... (90 %)
+Writing at 0x000d02f8... (93 %)
+Writing at 0x000d63ff... (96 %)
+Writing at 0x000dc3cf... (100 %)
+Wrote 858592 bytes (540296 compressed) at 0x00010000 in 13.0 seconds (effective 527.2 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 269.8 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

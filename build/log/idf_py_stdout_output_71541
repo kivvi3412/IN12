@@ -1,0 +1,88 @@
+[1/10] Performing build step for 'bootloader'
+[1/1] cd /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/bootloader/esp-idf/esptool_py && /Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/bootloader/bootloader.bin
+Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.
+[2/10] No install step for 'bootloader'
+[3/10] Completed 'bootloader'
+[4/10] Building CXX object esp-idf/web_server/CMakeFiles/__idf_web_server.dir/web_server.cpp.obj
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/web_server/web_server.cpp:120:1: warning: missing initializer for member 'httpd_uri::user_ctx' [-Wmissing-field-initializers]
+  120 | };
+      | ^
+/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/components/web_server/web_server.cpp:126:1: warning: missing initializer for member 'httpd_uri::user_ctx' [-Wmissing-field-initializers]
+  126 | };
+      | ^
+[5/10] Linking C static library esp-idf/web_server/libweb_server.a
+[6/10] Generating ld/sections.ld
+[7/10] Linking CXX executable ESP_Test.elf
+[8/10] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/ESP_Test.bin
+[9/10] cd /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/esp-idf/esptool_py && /Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/partition_table/partition-table.bin /Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build/ESP_Test.bin
+ESP_Test.bin binary size 0xcfcb0 bytes. Smallest app partition is 0x100000 bytes. 0x30350 bytes (19%) free.
+[9/10] cd /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py && /opt/homebrew/Cellar/cmake/3.29.0/bin/cmake -D IDF_PATH=/Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf -D "SERIAL_TOOL=/Users/kivvi/.espressif/python_env/idf5.2_py3.12_env/bin/python;;/Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/Users/kivvi/Documents/JetBrains_Project/CLion/ESP32/ESP_Test/build -P /Users/kivvi/Storage/Software_Library/ESP_Projects/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool.py --chip esp32 -p /dev/cu.usbserial-0001 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 ESP_Test.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.7.0
+Serial port /dev/cu.usbserial-0001
+Connecting.....
+Chip is ESP32-D0WD-V3 (revision v3.0)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: a8:42:e3:90:af:c4
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000dffff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26720 bytes to 16358...
+Writing at 0x00001000... (100 %)
+Wrote 26720 bytes (16358 compressed) at 0x00001000 in 0.9 seconds (effective 240.4 kbit/s)...
+Hash of data verified.
+Compressed 851120 bytes to 534553...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001d135... (6 %)
+Writing at 0x0002688a... (9 %)
+Writing at 0x0002b5da... (12 %)
+Writing at 0x000351f0... (15 %)
+Writing at 0x0003ce43... (18 %)
+Writing at 0x000429bc... (21 %)
+Writing at 0x000482b0... (24 %)
+Writing at 0x0004dbd6... (27 %)
+Writing at 0x00053797... (30 %)
+Writing at 0x00059006... (33 %)
+Writing at 0x0005ebc4... (36 %)
+Writing at 0x000648c5... (39 %)
+Writing at 0x0006a407... (42 %)
+Writing at 0x00070263... (45 %)
+Writing at 0x00075e21... (48 %)
+Writing at 0x0007b062... (51 %)
+Writing at 0x00080537... (54 %)
+Writing at 0x00085a44... (57 %)
+Writing at 0x0008ae05... (60 %)
+Writing at 0x00090461... (63 %)
+Writing at 0x00095cf2... (66 %)
+Writing at 0x0009ba8a... (69 %)
+Writing at 0x000a12cb... (72 %)
+Writing at 0x000a70e3... (75 %)
+Writing at 0x000ad79e... (78 %)
+Writing at 0x000b3b20... (81 %)
+Writing at 0x000b9275... (84 %)
+Writing at 0x000c26bf... (87 %)
+Writing at 0x000cad13... (90 %)
+Writing at 0x000d0965... (93 %)
+Writing at 0x000d6c6c... (96 %)
+Writing at 0x000dc429... (100 %)
+Wrote 851120 bytes (534553 compressed) at 0x00010000 in 12.9 seconds (effective 527.4 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 238.2 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
