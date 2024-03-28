@@ -1,3 +1,4 @@
+#include <string>
 #include "web_server.h"
 #include "cJSON.h"
 
@@ -5,53 +6,8 @@ static const char *webserver_TAG = "webserver";
 
 
 static esp_err_t webserver_get_handler(httpd_req_t *req) {
-    const char resp[] = R"(
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>WiFi Configuration</title>
-            <script>
-                function submitForm() {
-                    var ssid = document.getElementById("ssid").value;
-                    var password = document.getElementById("password").value;
-
-                    var data = {
-                        "ssid": ssid,
-                        "password": password
-                    };
-
-                    fetch('/api/save_wifi_config', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        alert(data.message);
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        alert("Error occurred while saving WiFi configuration");
-                    });
-                }
-            </script>
-        </head>
-        <body>
-            <h1>WiFi Configuration</h1>
-            <form onsubmit="submitForm(); return false;">
-                <label for="ssid">SSID:</label><br>
-                <input type="text" id="ssid" name="ssid"><br>
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password"><br><br>
-                <input type="submit" value="Save">
-            </form>
-        </body>
-        </html>
-    )";
-    httpd_resp_send(req, resp, HTTPD_RESP_USE_STRLEN);
+    std::string resp = littleFS::readFile("index.html");
+    httpd_resp_send(req, resp.c_str(), HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
 

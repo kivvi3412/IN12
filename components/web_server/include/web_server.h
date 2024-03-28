@@ -15,6 +15,7 @@
 
 #include "nvs_module.h"
 #include "wifi_module.h"
+#include "littlefs_module.h"
 
 class WebServer {
 public:

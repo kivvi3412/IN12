@@ -1,11 +1,15 @@
+#include <string>
 #include "web_server.h"
 #include "wifi_module.h"
 #include "nvs_module.h"
+#include "littlefs_module.h"
 
 
 void main_thread(void *pVoid) {
     // 初始化NVS
     NVSModule::init_nvs();
+    // 初始化LittleFS
+    littleFS::init();
     // 初始化wifi
     WifiModule::init();
     // Start the web server

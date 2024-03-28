@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WiFi Configuration</title>
+    <script>
+        function submitForm() {
+            var ssid = document.getElementById("ssid").value;
+            var password = document.getElementById("password").value;
+
+            var data = {
+                "ssid": ssid,
+                "password": password
+            };
+
+            fetch('/api/save_wifi_config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert(data.message);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert("Error occurred while saving WiFi configuration");
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>WiFi Configuration</h1>
+<form onsubmit="submitForm(); return false;">
+    <label for="ssid">SSID:</label><br>
+    <input type="text" id="ssid" name="ssid"><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>
