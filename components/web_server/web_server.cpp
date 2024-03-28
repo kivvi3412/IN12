@@ -5,27 +5,56 @@ static const char *webserver_TAG = "webserver";
 
 
 static esp_err_t webserver_get_handler(httpd_req_t *req) {
-    const char resp[] = "<!DOCTYPE html>\n"
-                        "<html>\n"
-                        "<head>\n"
-                        "    <title>WiFi Configuration</title>\n"
-                        "</head>\n"
-                        "<body>\n"
-                        "    <h1>WiFi Configuration</h1>\n"
-                        "    <form action=\"/save_wifi_config\" method=\"post\">\n"
-                        "        <label for=\"ssid\">SSID:</label><br>\n"
-                        "        <input type=\"text\" id=\"ssid\" name=\"ssid\"><br>\n"
-                        "        <label for=\"password\">Password:</label><br>\n"
-                        "        <input type=\"password\" id=\"password\" name=\"password\"><br><br>\n"
-                        "        <input type=\"submit\" value=\"Save\">\n"
-                        "    </form> \n"
-                        "</body>\n"
-                        "</html>";
+    const char resp[] = R"(
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>WiFi Configuration</title>
+            <script>
+                function submitForm() {
+                    var ssid = document.getElementById("ssid").value;
+                    var password = document.getElementById("password").value;
+
+                    var data = {
+                        "ssid": ssid,
+                        "password": password
+                    };
+
+                    fetch('/api/save_wifi_config', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        alert(data.message);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert("Error occurred while saving WiFi configuration");
+                    });
+                }
+            </script>
+        </head>
+        <body>
+            <h1>WiFi Configuration</h1>
+            <form onsubmit="submitForm(); return false;">
+                <label for="ssid">SSID:</label><br>
+                <input type="text" id="ssid" name="ssid"><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"><br><br>
+                <input type="submit" value="Save">
+            </form>
+        </body>
+        </html>
+    )";
     httpd_resp_send(req, resp, HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
 
-// 请勿修改此代码否则随时可能会暴毙
 static esp_err_t save_wifi_config_post_handler(httpd_req_t *req) {
     char buf[128];
     int ret, remaining = req->content_len;
@@ -129,17 +158,6 @@ static esp_err_t save_wifi_config_post_handler(httpd_req_t *req) {
     return ESP_OK;
 }
 
-static const httpd_uri_t ap_uri_get = {
-        .uri       = "/",
-        .method    = HTTP_GET,
-        .handler   = webserver_get_handler
-};
-
-static const httpd_uri_t save_wifi_config_uri_post = {
-        .uri = "/save_wifi_config",
-        .method = HTTP_POST,
-        .handler = save_wifi_config_post_handler
-};
 
 httpd_handle_t WebServer::start() {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
@@ -149,9 +167,20 @@ httpd_handle_t WebServer::start() {
     // Start the httpd server
     ESP_LOGI(webserver_TAG, "Starting server on port: '%d'", config.server_port);
     if (httpd_start(&server, &config) == ESP_OK) {
-        // Set URI handlers
-        ESP_LOGI(webserver_TAG, "Registering URI handlers");
+        // 根目录
+        static const httpd_uri_t ap_uri_get = {
+                .uri       = "/",
+                .method    = HTTP_GET,
+                .handler   = webserver_get_handler
+        };
         httpd_register_uri_handler(server, &ap_uri_get);
+
+        // API 保存 WiFi 配置
+        static const httpd_uri_t save_wifi_config_uri_post = {
+                .uri = "/api/save_wifi_config",
+                .method = HTTP_POST,
+                .handler = save_wifi_config_post_handler
+        };
         httpd_register_uri_handler(server, &save_wifi_config_uri_post);
         return server;
     }
