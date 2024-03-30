@@ -46,7 +46,7 @@ std::string littleFS::readFile(const char *relativePath) {
     std::string absolutePath = LITTLEFS_MOUNT_POINT + std::string("/") + std::string(relativePath);
     FILE *file = fopen(absolutePath.c_str(), "r");
     if (file == nullptr) {
-        ESP_LOGE(TAG, "Failed to open file for reading");
+        ESP_LOGI(TAG, "No such file: %s", relativePath);
         return {};
     }
 
@@ -72,7 +72,7 @@ void littleFS::readFileToBuffer(const char *relativePath, char *buffer, size_t b
     std::string absolutePath = LITTLEFS_MOUNT_POINT + std::string("/") + std::string(relativePath);
     FILE *file = fopen(absolutePath.c_str(), "r");
     if (file == nullptr) {
-        ESP_LOGE(TAG, "Failed to open file for reading");
+        ESP_LOGI(TAG, "No such file: %s", relativePath);
         memset(buffer, 0, buffer_size);  // 如果文件无法打开，清空缓冲区
         return;
     }

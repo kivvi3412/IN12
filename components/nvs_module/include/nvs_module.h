@@ -2,8 +2,8 @@
 // Created by HAIRONG ZHU on 2024/3/27.
 //
 
-#ifndef ESP_TEST_NVS_MODULE_H
-#define ESP_TEST_NVS_MODULE_H
+#ifndef IN12_NVS_MODULE_H
+#define IN12_NVS_MODULE_H
 
 #include "nvs_flash.h"
 #include "nvs.h"
@@ -19,4 +19,4 @@ public:
     static esp_err_t load_wifi_config(wifi_config_t *wifi_config);
 };
 
-#endif //ESP_TEST_NVS_MODULE_H
+#endif //IN12_NVS_MODULE_H

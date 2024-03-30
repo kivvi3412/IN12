@@ -2,8 +2,8 @@
 // Created by HAIRONG ZHU on 2024/3/28.
 //
 
-#ifndef ESP_TEST_LITTLEFS_MODULE_H
-#define ESP_TEST_LITTLEFS_MODULE_H
+#ifndef IN12_LITTLEFS_MODULE_H
+#define IN12_LITTLEFS_MODULE_H
 #include "esp_littlefs.h"
 #include <esp_log.h>
 
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //ESP_TEST_LITTLEFS_MODULE_H
+#endif //IN12_LITTLEFS_MODULE_H

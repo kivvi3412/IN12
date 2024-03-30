@@ -1,44 +1,240 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WiFi Configuration</title>
-    <script>
-        function submitForm() {
-            var ssid = document.getElementById("ssid").value;
-            var password = document.getElementById("password").value;
-
-            var data = {
-                "ssid": ssid,
-                "password": password
-            };
-
-            fetch('/api/save_wifi_config', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    alert(data.message);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert("Error occurred while saving WiFi configuration");
-                });
+    <title>Clock Configuration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
         }
-    </script>
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"], button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+
+        .mode-section {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .mode-section.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .config-section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .config-section h2 {
+            margin-top: 0;
+        }
+
+        .config-section p {
+            margin-bottom: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .radio-group label {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1>WiFi Configuration</h1>
-<form onsubmit="submitForm(); return false;">
-    <label for="ssid">SSID:</label><br>
-    <input type="text" id="ssid" name="ssid"><br>
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password"><br><br>
-    <input type="submit" value="Save">
-</form>
+<h1>Clock Configuration</h1>
+<div class="config-section">
+    <p>Current Display Number: <span id="current-display-number"></span></p>
+    <form onsubmit="saveWifiConfig(); return false;">
+        <label for="ssid">WiFi SSID:</label>
+        <input type="text" id="ssid" name="ssid">
+        <label for="password">WiFi Password:</label>
+        <input type="password" id="password" name="password">
+        <input type="submit" value="Save WiFi Configuration">
+    </form>
+</div>
+<div class="config-section">
+    <h2>Mode Configuration</h2>
+    <div class="radio-group">
+        <label>
+            <input type="radio" name="mode" value="1" onclick="setMode(1)"> Mode 1 (Automatic Time Configuration)
+        </label>
+        <label>
+            <input type="radio" name="mode" value="2" onclick="setMode(2)"> Mode 2 (Custom Number)
+        </label>
+    </div>
+    <div id="mode-1-section" class="mode-section">
+        <label for="timezone">Timezone:</label>
+        <select id="timezone" onchange="sendData()">
+            <option value="CST-0">CST-0</option>
+            <option value="CST-1">CST-1</option>
+            <option value="CST-2">CST-2</option>
+            <option value="CST-3">CST-3</option>
+            <option value="CST-4">CST-4</option>
+            <option value="CST-5">CST-5</option>
+            <option value="CST-6">CST-6</option>
+            <option value="CST-7">CST-7</option>
+            <option value="CST-8">CST-8</option>
+            <option value="CST-9">CST-9</option>
+            <option value="CST-10">CST-10</option>
+            <option value="CST-11">CST-11</option>
+            <option value="CST-12">CST-12</option>
+            <option value="CST-13">CST-13</option>
+            <option value="CST-14">CST-14</option>
+            <option value="CST-15">CST-15</option>
+            <option value="CST-16">CST-16</option>
+            <option value="CST-17">CST-17</option>
+            <option value="CST-18">CST-18</option>
+            <option value="CST-19">CST-19</option>
+            <option value="CST-20">CST-20</option>
+            <option value="CST-21">CST-21</option>
+            <option value="CST-22">CST-22</option>
+            <option value="CST-23">CST-23</option>
+        </select>
+    </div>
+    <div id="mode-2-section" class="mode-section">
+        <label for="custom-number">Custom Number:</label>
+        <input type="text" id="custom-number" name="custom-number" maxlength="4" oninput="sendData()">
+    </div>
+</div>
+<div class="config-section">
+    <label for="flush-time">Flush Time:</label>
+    <input type="text" id="flush-time" name="flush-time" maxlength="4" oninput="sendData()">
+</div>
+
+<script>
+    let currentConfig = {};
+
+    // 获取当前配置数据并填充到页面
+    window.onload = function () {
+        fetch('/api/get_common_data', {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                currentConfig = data;
+                document.getElementById('current-display-number').textContent = data.current_display_number;
+                document.querySelector(`input[name="mode"][value="${data.mode}"]`).checked = true;
+                document.getElementById('timezone').value = data.timezone;
+                document.getElementById('custom-number').value = data.custom_number;
+                document.getElementById('flush-time').value = data.flush_time;
+                setMode(data.mode);
+            });
+    };
+
+    function saveWifiConfig() {
+        var ssid = document.getElementById("ssid").value;
+        var password = document.getElementById("password").value;
+
+        var data = {
+            "ssid": ssid,
+            "password": password
+        };
+
+        fetch('/api/save_wifi_config', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert(data.message);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert("Error occurred while saving WiFi configuration");
+            });
+    }
+
+    function setMode(mode) {
+        var mode1Section = document.getElementById('mode-1-section');
+        var mode2Section = document.getElementById('mode-2-section');
+
+        if (mode === 1) {
+            mode1Section.classList.remove('disabled');
+            mode2Section.classList.add('disabled');
+        } else if (mode === 2) {
+            mode1Section.classList.add('disabled');
+            mode2Section.classList.remove('disabled');
+        }
+
+        sendData();
+    }
+
+    function sendData() {
+        var mode = document.querySelector('input[name="mode"]:checked').value;
+        var timezone = document.getElementById('timezone').value;
+        var customNumber = document.getElementById('custom-number').value.padStart(4, '0');
+        var flushTime = document.getElementById('flush-time').value.padStart(4, '0');
+
+        var data = {
+            "mode": parseInt(mode),
+            "timezone": timezone,
+            "custom_number": customNumber,
+            "flush_time": flushTime
+        };
+
+        fetch('/api/set_common_data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error occurred while sending configuration');
+            });
+    }
+</script>
 </body>
 </html>

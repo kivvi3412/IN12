@@ -6,5 +6,5 @@ cmake_minimum_required(VERSION 3.16)
 
 set(IDF_TARGET "esp32")
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(ESP_Test)
+project(IN12)
 littlefs_create_partition_image(littlefs ${CMAKE_CURRENT_SOURCE_DIR}/littlefs_root FLASH_IN_PROJECT)

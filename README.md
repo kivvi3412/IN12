@@ -7,3 +7,6 @@
     - [littlefs](https://components.espressif.com/components/joltwallet/littlefs)
        - `idf.py add-dependency "joltwallet/littlefs^1.14.2"`
     - 安装完后执行 `idf.py reconfigure` 自动下载依赖包
+2. 生成最小配置文件
+    - `idf.py menuconfig`
+    - 按`D`, 输入` ../sdkconfig.defaults` 生成最小配置文件

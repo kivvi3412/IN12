@@ -7,8 +7,19 @@
 
 static const char *TAG = "wifi_module";
 
+bool WifiModule::is_sta_connected = false;
 
-static void wifiEventHandler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
+
+void WifiModule::set_wifi_status(bool status) {
+    is_sta_connected = status;
+}
+
+bool WifiModule::wifi_is_connected() {
+    return is_sta_connected;
+}
+
+
+void wifiEventHandler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
     if (event_id == WIFI_EVENT_AP_STACONNECTED) {   // 有设备连接
         auto event = (wifi_event_ap_staconnected_t *) event_data;
         ESP_LOGI(TAG, "station " MACSTR " join, AID=%d", MAC2STR(event->mac), event->aid);
@@ -20,6 +31,12 @@ static void wifiEventHandler(void *arg, esp_event_base_t event_base, int32_t eve
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) { // STA 获取IP
         auto *event = (ip_event_got_ip_t *) event_data;
         ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
+        WifiModule::set_wifi_status(true);
+        TimezoneModule::set_system_timezone();
+        ESP_LOGI(TAG, "set timezone success");
+    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) { // STA 断开
+        ESP_LOGI(TAG, "Wi-Fi disconnected");
+        WifiModule::set_wifi_status(false);
     }
 }
 
@@ -58,6 +75,9 @@ static void wifiInitSta() {
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_APSTA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
     ESP_ERROR_CHECK(esp_wifi_start());
+
+    // 获取WIFI账号密码
+    ESP_LOGI(TAG, "Connecting to %s, Password: %s", wifi_config.sta.ssid, wifi_config.sta.password);
 
     esp_wifi_connect();
 }
@@ -120,3 +140,5 @@ void WifiModule::staReconnect() {
 
     esp_wifi_connect();
 }
+
+
