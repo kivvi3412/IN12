@@ -70,7 +70,21 @@ static void wifiInitAp() {
 static void wifiInitSta() {
     // 从NVS中加载WIFI配置
     wifi_config_t wifi_config;
-    ESP_ERROR_CHECK(NVSModule::load_wifi_config(&wifi_config));
+    esp_err_t err = NVSModule::load_wifi_config(&wifi_config);
+    if (err != ESP_OK) {    // 加载失败
+        if (err == ESP_ERR_NVS_NOT_FOUND) {
+            ESP_LOGI(TAG, "WiFi configuration not found in NVS");
+            // 设置默认的WIFI配置
+            wifi_config = {
+                    .sta = {
+                            .ssid = EXAMPLE_ESP_STA_WIFI_SSID,
+                            .password = EXAMPLE_ESP_STA_WIFI_PASS,
+                    },
+            };
+        } else {
+            ESP_LOGE(TAG, "Failed to load WiFi configuration from NVS");
+        }
+    }
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_APSTA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));

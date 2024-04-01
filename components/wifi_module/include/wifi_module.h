@@ -10,6 +10,8 @@
 #include "nvs_module.h"
 #include "timezone_module.h"
 
+#define EXAMPLE_ESP_STA_WIFI_SSID       "WIFI_SSID"
+#define EXAMPLE_ESP_STA_WIFI_PASS       "PASSWORD"
 #define EXAMPLE_ESP_AP_WIFI_SSID       "IN12"
 #define EXAMPLE_ESP_AP_WIFI_PASS       "12345678"
 #define EXAMPLE_ESP_AP_WIFI_CHANNEL    1
