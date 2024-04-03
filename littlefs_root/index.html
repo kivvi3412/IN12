@@ -120,7 +120,7 @@
         <input type="submit" value="Save WiFi Configuration">
     </form>
     <p>WiFi Status: <span id="wifi-status"></span></p>
-    <p>Disconnection Reason: <span id="disconnection-reason"></span></p>
+    <p id="disconnection-reason-container" style="display: none;">Disconnection Reason: <span id="disconnection-reason"></span></p>
     <button onclick="scanWifi()">Scan WiFi</button>
 </div>
 <div class="config-section">
@@ -294,12 +294,15 @@
                 document.getElementById('ssid').value = wifiConfig.ssid;
                 document.getElementById('password').value = wifiConfig.password;
 
+                var disconnectionReasonContainer = document.getElementById('disconnection-reason-container');
+
                 if (wifiConfig.connected === 1) {
                     document.getElementById('wifi-status').textContent = 'Connected';
-                    document.getElementById('disconnection-reason').textContent = '';
+                    disconnectionReasonContainer.style.display = 'none';
                 } else {
                     document.getElementById('wifi-status').textContent = 'Disconnected';
                     document.getElementById('disconnection-reason').textContent = wifiConfig.disconnected_reason;
+                    disconnectionReasonContainer.style.display = 'block';
                 }
             })
             .catch((error) => {
