@@ -11,8 +11,11 @@
 #include "esp_log.h"
 #include "esp_http_server.h"
 #include <sys/param.h>
+#include <string>
+#include "cJSON.h"
 
-
+#include "timezone_module.h"
+#include "display_module.h"
 #include "nvs_module.h"
 #include "wifi_module.h"
 #include "littlefs_module.h"

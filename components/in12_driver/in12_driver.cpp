@@ -1,10 +1,5 @@
 #include "in12_driver.h"
 
-gpio_num_t IN12_DRIVER::ST_CP = GPIO_NUM_19;
-gpio_num_t IN12_DRIVER::SH_CP = GPIO_NUM_18;
-gpio_num_t IN12_DRIVER::DS = GPIO_NUM_5;
-
-
 void IN12_DRIVER::init() {
     gpio_set_direction(ST_CP, GPIO_MODE_OUTPUT);
     gpio_set_direction(SH_CP, GPIO_MODE_OUTPUT);

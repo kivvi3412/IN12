@@ -11,10 +11,10 @@
 
 class DisplayModule {
 public:
-    static std::string flush_time;
-    static std::string custom_data;
-    static int presentation_mode; // 1: 自动时钟模式 2: 自定义数字模式
-    static std::string current_presentation_data;
+    inline static std::string flush_time = "0430";
+    inline static std::string custom_data = "0000";
+    inline static int presentation_mode = 1; // 1: 自动时钟模式 2: 自定义数字模式
+    inline static std::string current_presentation_data = "0000";
 
 
     static void set_flush_clock_time(std::string f_time);

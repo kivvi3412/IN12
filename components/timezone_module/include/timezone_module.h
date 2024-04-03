@@ -16,11 +16,11 @@ using namespace std;
 
 class TimezoneModule {
 public:
-    static bool is_adjusted;   // 时间是否已经校准
-    static int hour_current;
-    static int minute_current;
-    static int second_current;
-    static char user_timezone[8];
+    inline static bool is_adjusted = false;   // 时间是否已经校准
+    inline static int hour_current = 0;
+    inline static int minute_current = 0;
+    inline static int second_current = 0;
+    inline static char user_timezone[8] = "CST-8";
 
 
     static void set_system_timezone();

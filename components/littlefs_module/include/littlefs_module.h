@@ -6,6 +6,8 @@
 #define IN12_LITTLEFS_MODULE_H
 #include "esp_littlefs.h"
 #include <esp_log.h>
+#include <string>
+#include <cstring>
 
 
 class littleFS {

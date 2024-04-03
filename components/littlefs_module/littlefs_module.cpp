@@ -1,9 +1,6 @@
 //
 // Created by HAIRONG ZHU on 2024/3/28.
 //
-
-#include <string>
-#include <cstring>
 #include "littlefs_module.h"
 
 #define LITTLEFS_PARTITION_LABEL "littlefs"

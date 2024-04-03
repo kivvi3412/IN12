@@ -4,14 +4,6 @@
 
 #include "timezone_module.h"
 
-
-bool TimezoneModule::is_adjusted = false;   // 时间是否已经校准
-int TimezoneModule::hour_current = 0;
-int TimezoneModule::minute_current = 0;
-int TimezoneModule::second_current = 0;
-char TimezoneModule::user_timezone[8] = "CST-8";
-
-
 string s_fill_zero(const string &input_string) {
     return string(2 - input_string.length(), '0') + input_string;
 }

@@ -13,9 +13,9 @@
 
 class IN12_DRIVER {
 public:
-    static gpio_num_t ST_CP;
-    static gpio_num_t SH_CP;
-    static gpio_num_t DS;
+    inline static gpio_num_t ST_CP = GPIO_NUM_19;
+    inline static gpio_num_t SH_CP = GPIO_NUM_18;
+    inline static gpio_num_t DS = GPIO_NUM_5;
 
 
     static void init();

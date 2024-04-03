@@ -81,6 +81,31 @@
         .radio-group label {
             margin-bottom: 10px;
         }
+
+        input[type="text"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        select:hover, select:focus {
+            border-color: #888;
+            outline: none;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 9L1.2 4.2 2.6 2.8 6 6.2 9.4 2.8l1.4 1.4z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+            padding-right: 30px;
+        }
     </style>
 </head>
 <body>
@@ -89,11 +114,14 @@
     <p>Current Display Number: <span id="current-display-number"></span></p>
     <form onsubmit="saveWifiConfig(); return false;">
         <label for="ssid">WiFi SSID:</label>
-        <input type="text" id="ssid" name="ssid">
+        <select id="ssid" name="ssid"></select>
         <label for="password">WiFi Password:</label>
         <input type="password" id="password" name="password">
         <input type="submit" value="Save WiFi Configuration">
     </form>
+    <p>WiFi Status: <span id="wifi-status"></span></p>
+    <p>Disconnection Reason: <span id="disconnection-reason"></span></p>
+    <button onclick="scanWifi()">Scan WiFi</button>
 </div>
 <div class="config-section">
     <h2>Mode Configuration</h2>
@@ -107,32 +135,7 @@
     </div>
     <div id="mode-1-section" class="mode-section">
         <label for="timezone">Timezone:</label>
-        <select id="timezone" onchange="sendData()">
-            <option value="CST-0">CST-0</option>
-            <option value="CST-1">CST-1</option>
-            <option value="CST-2">CST-2</option>
-            <option value="CST-3">CST-3</option>
-            <option value="CST-4">CST-4</option>
-            <option value="CST-5">CST-5</option>
-            <option value="CST-6">CST-6</option>
-            <option value="CST-7">CST-7</option>
-            <option value="CST-8">CST-8</option>
-            <option value="CST-9">CST-9</option>
-            <option value="CST-10">CST-10</option>
-            <option value="CST-11">CST-11</option>
-            <option value="CST-12">CST-12</option>
-            <option value="CST-13">CST-13</option>
-            <option value="CST-14">CST-14</option>
-            <option value="CST-15">CST-15</option>
-            <option value="CST-16">CST-16</option>
-            <option value="CST-17">CST-17</option>
-            <option value="CST-18">CST-18</option>
-            <option value="CST-19">CST-19</option>
-            <option value="CST-20">CST-20</option>
-            <option value="CST-21">CST-21</option>
-            <option value="CST-22">CST-22</option>
-            <option value="CST-23">CST-23</option>
-        </select>
+        <select id="timezone" onchange="sendData()"></select>
     </div>
     <div id="mode-2-section" class="mode-section">
         <label for="custom-number">Custom Number:</label>
@@ -146,17 +149,23 @@
 
 <script>
     let currentConfig = {};
+    let oldConfig = {}; // 保存初始配置
 
     // 获取当前配置数据并填充到页面
     window.onload = function () {
-        fetch('/api/get_common_data', {
+        getWifiInfo();
+        scanWifi();
+
+        fetch('/api/common/get_common_data', {
             method: 'POST'
         })
             .then(response => response.json())
             .then(data => {
                 currentConfig = data;
+                oldConfig = {...data}; // 保存初始配置
                 document.getElementById('current-display-number').textContent = data.current_display_number;
                 document.querySelector(`input[name="mode"][value="${data.mode}"]`).checked = true;
+                generateTimezoneOptions();
                 document.getElementById('timezone').value = data.timezone;
                 document.getElementById('custom-number').value = data.custom_number;
                 document.getElementById('flush-time').value = data.flush_time;
@@ -173,7 +182,7 @@
             "password": password
         };
 
-        fetch('/api/save_wifi_config', {
+        fetch('/api/wifi/save_wifi_config', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -203,7 +212,8 @@
             mode2Section.classList.remove('disabled');
         }
 
-        sendData();
+        currentConfig.mode = parseInt(mode);
+        sendDataIfChanged();
     }
 
     function sendData() {
@@ -219,7 +229,7 @@
             "flush_time": flushTime
         };
 
-        fetch('/api/set_common_data', {
+        fetch('/api/common/set_common_data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -229,11 +239,83 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
+                oldConfig = {...currentConfig}; // 更新初始配置
             })
             .catch((error) => {
                 console.error('Error:', error);
                 alert('Error occurred while sending configuration');
             });
+    }
+
+    function sendDataIfChanged() {
+        if (currentConfig.mode !== oldConfig.mode ||
+            currentConfig.timezone !== oldConfig.timezone ||
+            currentConfig.custom_number !== oldConfig.custom_number ||
+            currentConfig.flush_time !== oldConfig.flush_time) {
+            sendData();
+        }
+    }
+
+    function scanWifi() {
+        fetch('/api/wifi/scan_wifi', {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 200) {
+                    getWifiInfo();
+                } else {
+                    alert('Error occurred while scanning WiFi');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error occurred while scanning WiFi');
+            });
+    }
+
+    function getWifiInfo() {
+        fetch('/api/wifi/get_wifi_info', {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                var wifiConfig = data.wifi_config;
+                var wifiList = data.wifi_list;
+
+                document.getElementById('ssid').innerHTML = '';
+                wifiList.forEach((wifi) => {
+                    var option = document.createElement('option');
+                    option.value = wifi.ssid;
+                    option.text = wifi.ssid;
+                    document.getElementById('ssid').appendChild(option);
+                });
+
+                document.getElementById('ssid').value = wifiConfig.ssid;
+                document.getElementById('password').value = wifiConfig.password;
+
+                if (wifiConfig.connected === 1) {
+                    document.getElementById('wifi-status').textContent = 'Connected';
+                    document.getElementById('disconnection-reason').textContent = '';
+                } else {
+                    document.getElementById('wifi-status').textContent = 'Disconnected';
+                    document.getElementById('disconnection-reason').textContent = wifiConfig.disconnected_reason;
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error occurred while getting WiFi information');
+            });
+    }
+
+    function generateTimezoneOptions() {
+        var timezoneSelect = document.getElementById('timezone');
+        for (var i = 0; i <= 23; i++) {
+            var option = document.createElement('option');
+            option.value = 'CST-' + i;
+            option.text = 'CST-' + i;
+            timezoneSelect.appendChild(option);
+        }
     }
 </script>
 </body>

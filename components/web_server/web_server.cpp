@@ -1,12 +1,6 @@
-#include <string>
 #include "web_server.h"
 
-#include "cJSON.h"
-#include "timezone_module.h"
-#include "display_module.h"
-
-static const char *webserver_TAG = "webserver";
-
+static const char *webserver_TAG = "WebServerModule";
 
 static esp_err_t common_get_handler(httpd_req_t *req) {
     // 获取请求的 URI
@@ -239,6 +233,7 @@ static esp_err_t set_common_data_post_handler(httpd_req_t *req) {
         }
         const char *custom_number = json_custom_number->valuestring;
         DisplayModule::custom_data = custom_number;  // 设置自定义数字
+        DisplayModule::set_display_number(DisplayModule::get_custom_data());
         // 返回标准json成功 {"code": 200, "message": "Custom number set successfully", "data": custom_number}, http状态码为200
         cJSON *json_response = cJSON_CreateObject();
         cJSON_AddNumberToObject(json_response, "code", 200);
@@ -280,7 +275,7 @@ static esp_err_t set_common_data_post_handler(httpd_req_t *req) {
     return ESP_OK;
 }
 
-static esp_err_t get_common_data_get_handler(httpd_req_t *req) {
+static esp_err_t get_common_data_post_handler(httpd_req_t *req) {
     // 创建JSON对象
     cJSON *root = cJSON_CreateObject();
     // 添加mode字段
@@ -302,6 +297,30 @@ static esp_err_t get_common_data_get_handler(httpd_req_t *req) {
     return ESP_OK;
 }
 
+static esp_err_t get_wifi_info_data_post_handler(httpd_req_t *req) {
+    std::string wifi_info;
+    WifiModule::getAllInfoToJson(wifi_info);
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_status(req, HTTPD_200);
+    httpd_resp_sendstr(req, wifi_info.c_str());
+    return ESP_OK;
+}
+
+static esp_err_t scan_wifi_handler(httpd_req_t *req) {
+    // 开始扫描WIFI
+    WifiModule::renewWifiList();
+    // 返回成功
+    cJSON *json_response = cJSON_CreateObject();
+    cJSON_AddNumberToObject(json_response, "code", 200);
+    cJSON_AddStringToObject(json_response, "message", "Scan WiFi success");
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_status(req, HTTPD_200);
+    httpd_resp_sendstr(req, cJSON_Print(json_response));
+    cJSON_Delete(json_response);
+    return ESP_OK;
+}
+
+
 httpd_handle_t WebServer::start() {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     config.uri_match_fn = httpd_uri_match_wildcard; // 使用通配符匹配 URI
@@ -319,21 +338,13 @@ httpd_handle_t WebServer::start() {
         };
         httpd_register_uri_handler(server, &ap_uri_get);
 
-        // API 保存 WiFi 配置
-        static const httpd_uri_t save_wifi_config_uri_post = {
-                .uri = "/api/save_wifi_config",
-                .method = HTTP_POST,
-                .handler = save_wifi_config_post_handler
-        };
-        httpd_register_uri_handler(server, &save_wifi_config_uri_post);
-
         /*
          * 时区设置 （立刻同步时间按钮)
          * 自定义数字模式， 输入四个数字
          * 设置防阴极中毒时间
          */
         static const httpd_uri_t set_timezone_uri_post = {
-                .uri = "/api/set_common_data",
+                .uri = "/api/common/set_common_data",
                 .method = HTTP_POST,
                 .handler = set_common_data_post_handler
         };
@@ -346,12 +357,43 @@ httpd_handle_t WebServer::start() {
          * 获取当前防阴极中毒时间
          */
         static const httpd_uri_t get_current_data_uri_get = {
-                .uri = "/api/get_common_data",
+                .uri = "/api/common/get_common_data",
                 .method = HTTP_POST,
-                .handler = get_common_data_get_handler
+                .handler = get_common_data_post_handler
         };
         httpd_register_uri_handler(server, &get_current_data_uri_get);
 
+        // API 保存 WiFi 配置
+        static const httpd_uri_t save_wifi_config_uri_post = {
+                .uri = "/api/wifi/save_wifi_config",
+                .method = HTTP_POST,
+                .handler = save_wifi_config_post_handler
+        };
+        httpd_register_uri_handler(server, &save_wifi_config_uri_post);
+
+        /*
+         * 获取所有WIFI信息包括:
+         * 当前wifi账号密码
+         * 扫描到的wifi列表
+         * 当前wifi连接状态
+         */
+        static const httpd_uri_t wifi_info_uri_post = {
+                .uri = "/api/wifi/get_wifi_info",
+                .method = HTTP_POST,
+                .handler = get_wifi_info_data_post_handler
+        };
+        httpd_register_uri_handler(server, &wifi_info_uri_post);
+
+        /*
+         * 更新WIFI列表
+         * 更新后再次获取get_wifi_info 获取最新信息
+         */
+        static const httpd_uri_t wifi_scan_uri_post = {
+                .uri = "/api/wifi/scan_wifi",
+                .method = HTTP_POST,
+                .handler = scan_wifi_handler
+        };
+        httpd_register_uri_handler(server, &wifi_scan_uri_post);
         return server;
     }
 
