@@ -1,0 +1,8 @@
+build/
+.idea/
+.gemini/
+.claude/
+.vscode/
+.git/
+.cache/
+./kill_hydra_service.sh

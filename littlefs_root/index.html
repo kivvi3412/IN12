@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>IN12 Nixie Tube Clock</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Tab Navigation -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="time">通用</button>
+    <button class="tab-btn" data-tab="tube">辉光管</button>
+    <button class="tab-btn" data-tab="about">关于</button>
+  </nav>
+
+  <main class="page-content">
+
+    <!-- ═══════════ 通用 Tab ═══════════ -->
+    <section class="tab-panel active" id="tab-time">
+
+      <!-- WiFi -->
+      <div class="section-header">无线局域网</div>
+      <div class="settings-group">
+        <div class="settings-row" id="wifi-status-row">
+          <div class="status-dot" id="wifi-dot"></div>
+          <div class="row-text">
+            <div class="row-label" id="wifi-state-text">未连接</div>
+            <div class="row-sublabel" id="wifi-ssid-text"></div>
+          </div>
+        </div>
+        <div class="settings-row wifi-select-row" id="wifi-select-row">
+          <span class="row-label">选择网络</span>
+          <span class="chevron" id="wifi-chevron"></span>
+        </div>
+      </div>
+
+      <!-- Collapsible WiFi List -->
+      <div class="settings-group hidden" id="wifi-list-group">
+        <div class="settings-row wifi-list-header">
+          <span class="row-sublabel">可用网络</span>
+          <button class="icon-btn" id="btn-scan-wifi" title="刷新列表">
+            <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+          </button>
+        </div>
+        <div id="wifi-list"></div>
+      </div>
+
+      <!-- 时间校准 -->
+      <div class="section-header">日期与时间</div>
+      <div class="settings-group">
+        <div class="seg-control-wrap" style="padding: 12px 16px;">
+          <div class="segmented-control">
+            <button class="seg-btn active" id="btn-ntp-mode">NTP 自动</button>
+            <button class="seg-btn" id="btn-manual-mode">手动设置</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NTP Mode -->
+      <div id="ntp-settings">
+        <div class="settings-group">
+          <div class="settings-row">
+            <span class="row-label">时区</span>
+            <select class="inline-select" id="timezone-select">
+              <option value="NZST-12">奥克兰 +12</option>
+              <option value="AEST-10">悉尼 +10</option>
+              <option value="JST-9">东京 +9</option>
+              <option value="KST-9">首尔 +9</option>
+              <option value="CST-8" selected>北京 +8</option>
+              <option value="SGT-8">新加坡 +8</option>
+              <option value="WAST-7">曼谷 +7</option>
+              <option value="XJT-6">乌鲁木齐 +6</option>
+              <option value="IST-5:30">孟买 +5:30</option>
+              <option value="GST-4">迪拜 +4</option>
+              <option value="MSK-3">莫斯科 +3</option>
+              <option value="EET-2">开罗 +2</option>
+              <option value="CET-1">巴黎/柏林 +1</option>
+              <option value="GMT0">伦敦 +0</option>
+              <option value="BRST3">圣保罗 -3</option>
+              <option value="AST4">大西洋 -4</option>
+              <option value="EST5">纽约 -5</option>
+              <option value="CST6">芝加哥 -6</option>
+              <option value="MST7">丹佛 -7</option>
+              <option value="PST8">洛杉矶 -8</option>
+              <option value="HST10">夏威夷 -10</option>
+            </select>
+          </div>
+          <div class="settings-row" id="ntp-status-bar">
+            <div class="status-dot connecting" id="ntp-dot"></div>
+            <span class="row-label" id="ntp-status-text">检查 NTP 状态...</span>
+            <span class="last-sync" id="last-sync-text"></span>
+          </div>
+          <div class="settings-row" id="system-time-bar">
+            <span class="system-time-label">当前时间</span>
+            <span class="system-time-value" id="system-time-value">--:--:--</span>
+          </div>
+          <div class="settings-row action-row" id="btn-force-sync">
+            <span class="row-label accent-text">立即同步</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manual Mode -->
+      <div id="manual-settings" class="hidden">
+        <div class="settings-group">
+          <div style="padding: 12px 16px;">
+            <label class="field-label">设置当前时间</label>
+            <input type="datetime-local" class="time-input full-width" id="manual-time">
+            <p class="sub-hint" style="padding: 4px 0 0;">当前时间已根据设备系统时间预填</p>
+          </div>
+          <div class="quick-fill-row" style="padding: 4px 16px 12px;">
+            <button class="quick-fill-btn accent" id="btn-sync-now">一键同步</button>
+            <button class="quick-fill-btn" id="btn-manual-save">保存手动时间</button>
+          </div>
+          <div class="sub-hint" style="padding: 0 16px 12px; line-height: 1.6;">
+            一键同步：获取当前设备时间<br>保存手动时间：使用上方填写的时间
+          </div>
+        </div>
+      </div>
+
+      <!-- Factory Reset -->
+      <div class="section-header">还原</div>
+      <div class="settings-group">
+        <div class="settings-row action-row" id="btn-factory-reset">
+          <span class="row-label danger-text">还原所有设置</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════ 辉光管 Tab ═══════════ -->
+    <section class="tab-panel" id="tab-tube">
+
+      <!-- Display Mode -->
+      <div class="section-header">显示模式</div>
+      <div class="settings-group">
+        <div class="seg-control-wrap" style="padding: 12px 16px;">
+          <div class="segmented-control">
+            <button class="seg-btn active" id="btn-clock-mode">时钟模式</button>
+            <button class="seg-btn" id="btn-display-mode">展示模式</button>
+          </div>
+        </div>
+        <div id="display-mode-inputs" class="hidden">
+          <div class="sub-label">输入要显示的四位数字</div>
+          <div class="digit-inputs">
+            <input type="number" class="digit-input" id="d1" min="0" max="9" value="1" maxlength="1">
+            <input type="number" class="digit-input" id="d2" min="0" max="9" value="2" maxlength="1">
+            <input type="number" class="digit-input" id="d3" min="0" max="9" value="3" maxlength="1">
+            <input type="number" class="digit-input" id="d4" min="0" max="9" value="4" maxlength="1">
+          </div>
+          <div class="sub-hint" style="text-align: center; padding-bottom: 12px;">时钟在后台继续走，仅前台显示此数字</div>
+        </div>
+      </div>
+
+      <!-- Tube Power -->
+      <div class="section-header">辉光管</div>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="row-text">
+            <div class="row-label">辉光管</div>
+            <div class="row-sublabel">主显示管总开关</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="tube-on" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Neon -->
+      <div class="section-header">氖泡</div>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="row-text">
+            <div class="row-label">氖泡开关</div>
+            <div class="row-sublabel">小红灯总开关</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="neon-on" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="settings-row">
+          <div class="row-text">
+            <div class="row-label">氖泡闪烁</div>
+            <div class="row-sublabel">跟随时钟秒，每半秒闪一次</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="neon-blink" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Sleep Schedule -->
+      <div class="section-header">定时熄灯</div>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="row-text">
+            <div class="row-label">定时熄灯</div>
+            <div class="row-sublabel">晚上睡觉时段自动关闭管子</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="sleep-enabled">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="sleep-settings" class="expand-area hidden">
+          <div class="time-range-row">
+            <div class="time-field">
+              <label class="field-label">开始熄灯</label>
+              <input type="time" class="time-input" id="sleep-start" value="23:00">
+            </div>
+            <div class="time-arrow">&#8594;</div>
+            <div class="time-field">
+              <label class="field-label">恢复亮灯</label>
+              <input type="time" class="time-input" id="sleep-end" value="07:00">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Anti-Cathode Poisoning -->
+      <div class="section-header">防阴极中毒</div>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="row-text">
+            <div class="row-label">整点刷新</div>
+            <div class="row-sublabel">每小时整点 0→9 循环一遍，约1秒</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="hourly-poison-enabled">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="settings-row">
+          <div class="row-text">
+            <div class="row-label">固定时间深度刷新</div>
+            <div class="row-sublabel">大半夜长时间持续循环刷新</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="fixed-poison-enabled">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="fixed-poison-settings" class="expand-area hidden">
+          <div class="field-row" style="padding: 12px 16px;">
+            <div class="field-group">
+              <label class="field-label">执行时间（整点）</label>
+              <div class="number-input-wrap">
+                <input type="number" class="number-input" id="fixed-poison-hour" min="0" max="23" value="3">
+                <span class="unit">时</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">持续时长</label>
+              <div class="number-input-wrap">
+                <input type="number" class="number-input" id="fixed-poison-duration" min="10" max="600" value="120">
+                <span class="unit">秒</span>
+              </div>
+            </div>
+          </div>
+          <div class="sub-hint" style="padding-bottom: 12px;">每秒循环显示 0→9，持续指定秒数</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════ 关于 Tab ═══════════ -->
+    <section class="tab-panel" id="tab-about">
+
+      <div class="section-header">关于</div>
+      <div class="settings-group about-card">
+        <div class="about-nixie-icon">IN12</div>
+        <div class="about-title">辉光管时钟</div>
+        <div class="about-subtitle">Nixie Tube Clock</div>
+        <div class="about-divider"></div>
+        <div class="about-credit">Designed by <span class="about-name">Kivvi</span></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay hidden" id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p id="loading-text">加载中...</p>
+  </div>
+
+  <!-- Confirm Modal -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal">
+      <h3 class="modal-title" id="modal-title">确认操作</h3>
+      <p class="modal-body" id="modal-body">确定要执行此操作吗？</p>
+      <div class="modal-actions">
+        <button class="modal-btn cancel" id="modal-cancel">取消</button>
+        <button class="modal-btn confirm" id="modal-confirm">确认</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WiFi Password Modal -->
+  <div class="wifi-modal-overlay hidden" id="wifi-modal-overlay">
+    <div class="wifi-modal">
+      <div class="wifi-modal-header">
+        <div class="wifi-modal-title-group">
+          <div class="wifi-modal-action">加入网络</div>
+          <div class="wifi-modal-ssid" id="wifi-modal-ssid">—</div>
+        </div>
+      </div>
+      <div class="wifi-modal-body">
+        <div class="wifi-modal-field">
+          <label class="wifi-modal-label">密码</label>
+          <div class="password-wrap">
+            <input type="password" class="wifi-modal-input" id="wifi-password" placeholder="请输入 WiFi 密码"
+              autocomplete="current-password">
+            <button class="eye-btn" id="btn-toggle-pw">显示</button>
+          </div>
+        </div>
+      </div>
+      <div class="wifi-modal-actions">
+        <button class="wifi-modal-btn cancel" id="btn-cancel-connect">取消</button>
+        <button class="wifi-modal-btn confirm" id="btn-connect-wifi">加入</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>

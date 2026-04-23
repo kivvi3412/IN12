@@ -1,0 +1,1026 @@
+/* ═══════════════════════════════════════════
+   IN12 Nixie Tube Clock — Apple Settings Style
+   Color System: iOS Dark Mode
+═══════════════════════════════════════════ */
+
+:root {
+  --bg: #000000;
+  --bg-grouped: #1c1c1e;
+  --bg-secondary: #2c2c2e;
+  --bg-tertiary: #3a3a3c;
+  --separator: rgba(84, 84, 88, 0.65);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(235, 235, 245, 0.6);
+  --text-tertiary: rgba(235, 235, 245, 0.3);
+  --accent: #0a84ff;
+  --green: #30d158;
+  --red: #ff453a;
+  --orange: #ff9f0a;
+  --radius: 10px;
+  --transition: 0.25s ease;
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC',
+    'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Tab Navigation ── */
+.tab-nav {
+  display: flex;
+  border-bottom: 0.5px solid var(--separator);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 9;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px 0;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--transition);
+}
+
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-btn.active {
+  color: var(--accent);
+}
+
+.tab-btn.active::after {
+  transform: scaleX(1);
+}
+
+/* ── Page Content ── */
+.page-content {
+  padding: 8px 16px 40px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Section Headers ── */
+.section-header {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 24px 16px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* ── Settings Group ── */
+.settings-group {
+  background: var(--bg-grouped);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+/* ── Settings Row ── */
+.settings-row {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 11px 16px;
+  gap: 12px;
+}
+
+.settings-row + .settings-row {
+  border-top: 0.5px solid var(--separator);
+}
+
+.row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.row-label {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.row-sublabel {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+  line-height: 1.4;
+}
+
+.row-value {
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.accent-text {
+  color: var(--accent);
+}
+
+.danger-text {
+  color: var(--red);
+}
+
+/* ── Action Row (tappable row like "立即同步" / "还原所有设置") ── */
+.action-row {
+  cursor: pointer;
+  justify-content: center;
+}
+
+.action-row:active {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── Chevron (disclosure indicator) ── */
+.chevron {
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--text-tertiary);
+  border-bottom: 1.5px solid var(--text-tertiary);
+  transform: rotate(-45deg);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.chevron.open {
+  transform: rotate(45deg);
+}
+
+/* ── WiFi select row ── */
+.wifi-select-row {
+  cursor: pointer;
+}
+
+.wifi-select-row:active {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── WiFi list group ── */
+.wifi-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wifi-list-header .row-sublabel {
+  margin-top: 0;
+}
+
+/* ── Icon button (small SVG button) ── */
+.icon-btn {
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.icon-btn:active {
+  background: rgba(10, 132, 255, 0.15);
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.icon-btn.spinning svg {
+  animation: spin 0.8s linear infinite;
+}
+
+/* ── iOS Toggle Switch ── */
+.toggle {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.slider {
+  display: inline-block;
+  width: 51px;
+  height: 31px;
+  background: rgba(120, 120, 128, 0.32);
+  border-radius: 15.5px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  left: 2px;
+  top: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.06);
+}
+
+.toggle input:checked + .slider {
+  background: var(--green);
+}
+
+.toggle input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+/* ── Segmented Control ── */
+.seg-control-wrap {
+  padding: 10px 16px;
+}
+
+.segmented-control {
+  display: flex;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.seg-btn {
+  flex: 1;
+  padding: 6px 12px;
+  background: none;
+  border: none;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.seg-btn.active {
+  background: var(--bg-tertiary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Form Inputs ── */
+.field-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+
+.text-input,
+.time-input,
+.select-input {
+  width: 100%;
+  padding: 11px 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--transition);
+  -webkit-appearance: none;
+}
+
+.text-input:focus,
+.time-input:focus,
+.select-input:focus {
+  border-color: var(--accent);
+}
+
+.time-input::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}
+
+.select-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.time-input.full-width {
+  width: 100%;
+}
+
+/* inline select (for timezone in a row) */
+.inline-select {
+  padding: 8px 32px 8px 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--separator);
+  border-radius: 8px;
+  color: var(--accent);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230a84ff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  flex-shrink: 0;
+  max-width: 55%;
+  text-align: right;
+  direction: rtl;
+}
+
+.inline-select:focus {
+  border-color: var(--accent);
+}
+
+/* ── Number Input ── */
+.field-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.field-group {
+  flex: 1;
+}
+
+.number-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.number-input {
+  flex: 1;
+  padding: 10px 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: center;
+  outline: none;
+  -moz-appearance: textfield;
+  transition: border-color var(--transition);
+}
+
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input:focus {
+  border-color: var(--accent);
+}
+
+.unit {
+  font-size: 14px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Digit Inputs ── */
+.digit-inputs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 16px;
+}
+
+.digit-input {
+  width: 56px;
+  height: 56px;
+  font-size: 28px;
+  font-weight: 500;
+  text-align: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--separator);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.digit-input:focus {
+  border-color: var(--accent);
+}
+
+.digit-input::-webkit-inner-spin-button,
+.digit-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* ── Status Dot ── */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.connected {
+  background: var(--green);
+}
+
+.status-dot.connecting {
+  background: var(--orange);
+  animation: pulse 1.2s ease infinite;
+}
+
+.status-dot.disconnected {
+  background: var(--red);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── NTP Status Bar ── */
+.ntp-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#ntp-status-text {
+  font-size: 15px;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.last-sync {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  text-align: right;
+}
+
+/* ── System Time Bar ── */
+.system-time-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.system-time-label {
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.system-time-value {
+  font-size: 20px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+/* ── WiFi Items (inside list group) ── */
+.wifi-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  border-top: 0.5px solid var(--separator);
+}
+
+.wifi-item:first-child {
+  border-top: none;
+}
+
+.wifi-item:active {
+  background: var(--bg-tertiary);
+}
+
+.wifi-item.selected {
+  background: rgba(10, 132, 255, 0.12);
+}
+
+.wifi-ssid {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.wifi-rssi {
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.wifi-empty {
+  padding: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+/* ── WiFi Status Row ── */
+.wifi-status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Quick Fill Row ── */
+.quick-fill-row {
+  display: flex;
+  gap: 8px;
+}
+
+.quick-fill-btn {
+  flex: 1;
+  padding: 10px 8px;
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: 8px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.quick-fill-btn:active {
+  background: var(--bg-tertiary);
+  transform: scale(0.98);
+}
+
+.quick-fill-btn.accent {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.quick-fill-btn.accent:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+/* ── Time Range ── */
+.time-range-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.time-field {
+  flex: 1;
+}
+
+.time-arrow {
+  color: var(--text-tertiary);
+  font-size: 18px;
+  padding-bottom: 10px;
+  flex-shrink: 0;
+}
+
+/* ── Expand Area ── */
+.expand-area {
+  border-top: 0.5px solid var(--separator);
+  animation: fadeIn 0.2s ease;
+}
+
+/* ── Password Eye Button ── */
+.password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrap .wifi-modal-input {
+  padding-right: 50px;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 4px 8px;
+  color: var(--accent);
+  font-weight: 500;
+  font-family: inherit;
+}
+
+/* ── About Page ── */
+.about-card {
+  text-align: center;
+  padding: 48px 24px 40px;
+  background: var(--bg-grouped);
+  border-radius: var(--radius);
+}
+
+.about-nixie-icon {
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.about-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.about-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: 24px;
+}
+
+.about-divider {
+  width: 48px;
+  height: 0.5px;
+  background: var(--separator);
+  margin: 0 auto 24px;
+}
+
+.about-credit {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+.about-name {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 999;
+  text-align: center;
+  min-width: 160px;
+  max-width: 280px;
+  white-space: pre-line;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast.success {
+  color: var(--green);
+}
+
+.toast.error {
+  color: var(--red);
+}
+
+/* ── Loading Overlay ── */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--bg-tertiary);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-overlay p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* ── Confirm Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  padding: 20px;
+}
+
+.modal {
+  background: var(--bg-grouped);
+  border-radius: 14px;
+  padding: 20px;
+  max-width: 270px;
+  width: 100%;
+  animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.modal-body {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.modal-btn.cancel {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.modal-btn.confirm {
+  background: var(--red);
+  color: #fff;
+  font-weight: 600;
+}
+
+.modal-btn:active {
+  opacity: 0.7;
+}
+
+/* ── WiFi Password Modal ── */
+.wifi-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 24px;
+  animation: fadeIn 0.15s ease;
+}
+
+.wifi-modal {
+  background: var(--bg-grouped);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 270px;
+  overflow: hidden;
+  animation: modalIn 0.2s ease;
+}
+
+.wifi-modal-header {
+  padding: 20px 20px 12px;
+  text-align: center;
+}
+
+.wifi-modal-title-group {
+  width: 100%;
+}
+
+.wifi-modal-action {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.wifi-modal-ssid {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wifi-modal-body {
+  padding: 8px 20px 20px;
+}
+
+.wifi-modal-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.wifi-modal-input {
+  width: 100%;
+  padding: 11px 48px 11px 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--separator);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.wifi-modal-input:focus {
+  border-color: var(--accent);
+}
+
+.wifi-modal-actions {
+  display: flex;
+  border-top: 0.5px solid var(--separator);
+}
+
+.wifi-modal-btn {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: none;
+  font-size: 17px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.wifi-modal-btn:active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.wifi-modal-btn.cancel {
+  color: var(--text-primary);
+  border-right: 0.5px solid var(--separator);
+}
+
+.wifi-modal-btn.confirm {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Utility ── */
+.hidden {
+  display: none !important;
+}
+
+.sub-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 8px 16px 4px;
+}
+
+.sub-hint {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  padding: 8px 16px;
+  line-height: 1.6;
+}
+
+.divider {
+  height: 0.5px;
+  background: var(--separator);
+  margin: 0 16px;
+}
