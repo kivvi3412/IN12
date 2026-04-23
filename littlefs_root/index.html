@@ -43,7 +43,10 @@
         <div class="settings-row wifi-list-header">
           <span class="row-sublabel">可用网络</span>
           <button class="icon-btn" id="btn-scan-wifi" title="刷新列表">
-            <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+            </svg>
           </button>
         </div>
         <div id="wifi-list"></div>
@@ -282,6 +285,53 @@
         <div class="about-credit">Designed by <span class="about-name">Kivvi</span></div>
       </div>
 
+      <!-- Media Gallery -->
+      <div class="section-header">我们的照片与视频</div>
+      <div class="media-gallery">
+        <!-- Top Navigation -->
+        <div class="gallery-nav">
+          <button class="gallery-arrow" id="gallery-prev" aria-label="上一张">
+            <svg viewBox="0 0 24 24">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="gallery-counter" id="gallery-counter">1 / 4</span>
+          <button class="gallery-arrow" id="gallery-next" aria-label="下一张">
+            <svg viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Slides -->
+        <div class="gallery-viewport">
+          <div class="gallery-slide active">
+            <img src="/media/a.jpg" alt="照片 1" class="gallery-media" loading="lazy">
+          </div>
+          <div class="gallery-slide">
+            <img src="/media/b.jpg" alt="照片 2" class="gallery-media" loading="lazy">
+          </div>
+          <div class="gallery-slide">
+            <video class="gallery-media" controls playsinline preload="none">
+              <source src="/media/c.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="gallery-slide">
+            <video class="gallery-media" controls playsinline preload="none">
+              <source src="/media/d.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <!-- Dot Indicators -->
+        <div class="gallery-dots">
+          <span class="gallery-dot active"></span>
+          <span class="gallery-dot"></span>
+          <span class="gallery-dot"></span>
+          <span class="gallery-dot"></span>
+        </div>
+      </div>
+
     </section>
 
   </main>
@@ -334,6 +384,36 @@
   </div>
 
   <script src="app.js"></script>
+
+  <script>
+    (function () {
+      const slides = document.querySelectorAll('.gallery-slide');
+      const dots = document.querySelectorAll('.gallery-dot');
+      const counter = document.getElementById('gallery-counter');
+      let cur = 0;
+
+      function goTo(n) {
+        // 离开当前页时暂停视频
+        const vid = slides[cur].querySelector('video');
+        if (vid) vid.pause();
+
+        slides[cur].classList.remove('active');
+        dots[cur].classList.remove('active');
+        cur = ((n % slides.length) + slides.length) % slides.length;
+        slides[cur].classList.add('active');
+        dots[cur].classList.add('active');
+        counter.textContent = (cur + 1) + ' / ' + slides.length;
+
+        // 切换到视频页时自动播放（翻页属于用户手势，浏览器允许）
+        const nextVid = slides[cur].querySelector('video');
+        if (nextVid) nextVid.play().catch(() => { });
+      }
+
+      document.getElementById('gallery-prev').addEventListener('click', () => goTo(cur - 1));
+      document.getElementById('gallery-next').addEventListener('click', () => goTo(cur + 1));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+    })();
+  </script>
 
 </body>
 
