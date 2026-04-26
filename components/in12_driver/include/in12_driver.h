@@ -14,6 +14,7 @@ public:
     static constexpr gpio_num_t SH_CP = SH_CP_GPIO;
     static constexpr gpio_num_t DS = DS_GPIO;
     static constexpr gpio_num_t NEON = NEON_GPIO;
+    static constexpr gpio_num_t HV_CTL = HV_CTL_GPIO;
 
     static void init();
 
@@ -24,6 +25,8 @@ public:
     static void neon_set(bool on);
 
     static void neon_toggle();
+
+    static void hv_enable(bool enable);
 
 private:
     static void write_595(uint16_t data);

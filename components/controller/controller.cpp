@@ -55,6 +55,7 @@ void Controller::init() {
     // 6. 首次刷新
     resolveDisplay();
     resolveNeon();
+    resolveHV();
 
     ESP_LOGI(TAG, "Controller initialized successfully");
 }
@@ -95,6 +96,12 @@ void Controller::resolveDisplay() {
 }
 
 void Controller::resolveNeon() {
+    // ── 熄灯时段 ──
+    if (settings_.sleep_enabled && isInSleepWindow(cur_hour_, cur_minute_)) {
+        IN12_DRIVER::neon_set(false);
+        return;
+    }
+
     // 氖泡独立于显示模式，始终根据时钟秒来闪烁
     if (!settings_.neon_on) {
         IN12_DRIVER::neon_set(false);
@@ -106,6 +113,23 @@ void Controller::resolveNeon() {
     }
     // 不闪烁则常亮
     IN12_DRIVER::neon_set(true);
+}
+
+void Controller::resolveHV() {
+    bool hv_on = true;
+
+    if (settings_.sleep_enabled && isInSleepWindow(cur_hour_, cur_minute_)) {
+        hv_on = false; // 睡眠时间段，关断高压
+    } else if (!settings_.tube_on && !settings_.neon_on) {
+        hv_on = false; // 两个开关都关掉，关断高压
+    }
+
+    // 临时防阴极中毒动画时，强制开启高压
+    if (poison_active_) {
+        hv_on = true;
+    }
+
+    IN12_DRIVER::hv_enable(hv_on);
 }
 
 bool Controller::isInSleepWindow(int h, int m) const {
@@ -152,6 +176,7 @@ void Controller::onMinuteChange(int hour, int minute) {
     }
 
     resolveDisplay();
+    resolveHV();
     xSemaphoreGive(mutex_);
 }
 
@@ -169,14 +194,16 @@ void Controller::startAntiPoison(int total_ticks) {
 
     // 启动 100ms 周期定时器
     esp_timer_start_periodic(poison_timer_, 100 * 1000); // 100ms = 100000μs
-    resolveDisplay(); // 立刻显示第一个数字 0
+    resolveDisplay(); // 先立刻显示第一个数字 0
+    resolveHV();      // 再更新高压状态（确保数据锁存后再通电）
 }
 
 void Controller::stopAntiPoison() {
     esp_timer_stop(poison_timer_);
     poison_active_ = false;
     ESP_LOGI(TAG, "Anti-poison finished");
-    resolveDisplay(); // 恢复正常显示
+    resolveDisplay(); // 先恢复正常显示的数据
+    resolveHV();      // 再更新高压状态
 }
 
 void Controller::poisonTimerCb(void *arg) {
@@ -205,6 +232,7 @@ void Controller::applySettings(const LightSettings &newSettings) {
     saveToNVS();
     resolveDisplay();
     resolveNeon();
+    resolveHV();
     xSemaphoreGive(mutex_);
 }
 
@@ -224,6 +252,7 @@ void Controller::forceTimeRefresh() {
     cur_minute_ = timeinfo.tm_min;
 
     resolveDisplay();
+    resolveHV();
     xSemaphoreGive(mutex_);
 }
 
@@ -234,7 +263,7 @@ void Controller::factoryReset() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//  NVS 持久化
+//  NVS 持久化设置参数
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 void Controller::loadFromNVS() {
     LightSettings tmp{};

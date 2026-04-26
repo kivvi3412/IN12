@@ -131,8 +131,9 @@ private:
     esp_timer_handle_t poison_timer_ = nullptr;
 
     // ── 核心决策引擎 ──
-    void resolveDisplay();                    // 优先级决策: 此刻该显示什么?
+    void resolveDisplay();                    // 辉光管决策: 此刻该显示什么?
     void resolveNeon();                       // 氖泡决策: 此刻该亮/灭/闪?
+    void resolveHV();                          // 升压电路决策: 高压升压电路是否开启
     bool isInSleepWindow(int h, int m) const; // 当前是否在熄灯窗口内
 
     // ── TimeManager 回调 (mutex 保护) ──
