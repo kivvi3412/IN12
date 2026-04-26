@@ -9,6 +9,7 @@ void IN12_DRIVER::init() {
     gpio_set_direction(SH_CP, GPIO_MODE_OUTPUT);
     gpio_set_direction(DS, GPIO_MODE_OUTPUT);
     gpio_set_direction(NEON, GPIO_MODE_OUTPUT);
+    gpio_set_direction(HV_CTL, GPIO_MODE_OUTPUT);
 
     gpio_set_level(ST_CP, 0);
     gpio_set_level(SH_CP, 0);
@@ -16,6 +17,7 @@ void IN12_DRIVER::init() {
     gpio_set_level(NEON, 0);
 
     write_595(0x0000); // 初始化显示 0000
+    gpio_set_level(HV_CTL, 1); // 默认开机开启高压
 }
 
 // 核心：使用移位和位与操作，直接推送 16 bit 数据
@@ -62,4 +64,8 @@ void IN12_DRIVER::neon_set(const bool on) {
 void IN12_DRIVER::neon_toggle() {
     int current_state = gpio_get_level(NEON);
     gpio_set_level(NEON, !current_state); // 取反并输出
+}
+
+void IN12_DRIVER::hv_enable(bool enable) {
+    gpio_set_level(HV_CTL, enable ? 1 : 0);
 }

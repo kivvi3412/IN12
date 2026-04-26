@@ -16,6 +16,7 @@
 #define SH_CP_GPIO GPIO_NUM_6
 #define DS_GPIO    GPIO_NUM_7
 #define NEON_GPIO  GPIO_NUM_0
+#define HV_CTL_GPIO GPIO_NUM_1
 
 // WIFI_AP 配置
 #define WIFI_AP_SSID     "IN12_test"
