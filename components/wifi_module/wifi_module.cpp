@@ -137,7 +137,7 @@ void WifiModule::init() {
 
     ESP_ERROR_CHECK(esp_wifi_start());
     init_mdns();
-    refresh_wifi_list();
+    // refresh_wifi_list(); // 开机扫描电流过大可能会导致缺电重启
 }
 
 void WifiModule::init_mdns() {

@@ -282,7 +282,10 @@
         <div class="about-title">辉光管时钟</div>
         <div class="about-subtitle">Nixie Tube Clock</div>
         <div class="about-divider"></div>
-        <div class="about-credit">Designed by <span class="about-name">Kivvi</span></div>
+        <div class="about-credit">Designed by <span class="about-name">Kivvi</span><span class="about-quote-toggle" id="about-quote-toggle"> 展开 ▼</span></div>
+        <div class="about-quote hidden" id="about-quote">
+          <p>你要铆足劲变好，再站在不敢想象的人面前，旗鼓相当。</p>
+        </div>
       </div>
 
       <!-- Media Gallery -->
@@ -412,6 +415,14 @@
       document.getElementById('gallery-prev').addEventListener('click', () => goTo(cur - 1));
       document.getElementById('gallery-next').addEventListener('click', () => goTo(cur + 1));
       dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+      // About quote toggle
+      let quoteOpen = false;
+      document.getElementById('about-quote-toggle').addEventListener('click', () => {
+        quoteOpen = !quoteOpen;
+        document.getElementById('about-quote').classList.toggle('hidden', !quoteOpen);
+        document.getElementById('about-quote-toggle').textContent = quoteOpen ? ' 收起 ▲' : ' 展开 ▼';
+      });
     })();
   </script>
 

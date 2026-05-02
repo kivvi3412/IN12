@@ -17,6 +17,7 @@ extern "C" void app_main() {
     WifiModule::init();
 
     // 3. 中央控制器（初始化硬件 → 加载NVS设置 → 注册TimeManager回调 → 启动时间服务）
+    vTaskDelay(pdMS_TO_TICKS(2000));    // 等WIFI启动防止浪涌电流
     Controller::getInstance().init();
 
     // 4. Web 服务（注册API路由 + 静态文件服务）

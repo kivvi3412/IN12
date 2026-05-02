@@ -748,6 +748,34 @@ body {
   font-weight: 600;
 }
 
+.about-quote-toggle {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 400;
+  transition: opacity 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.about-quote-toggle:active {
+  opacity: 0.6;
+}
+
+.about-quote {
+  padding-top: 10px;
+  animation: fadeIn 0.3s ease;
+}
+
+.about-quote p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+
 /* ── Toast ── */
 .toast {
   position: fixed;

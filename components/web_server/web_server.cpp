@@ -460,6 +460,7 @@ httpd_handle_t WebServer::init() {
     config.server_port = 80;
     config.max_uri_handlers = 12; // 9 API + 1 静态文件 + 余量
     config.stack_size = 8192; // ArduinoJson 需要更大栈空间
+    config.lru_purge_enable = true; // 开启 LRU 清除机制，防止长期运行 Socket 泄露导致服务器卡死
 
     httpd_handle_t server = nullptr;
 

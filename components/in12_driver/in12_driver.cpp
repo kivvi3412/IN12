@@ -17,7 +17,7 @@ void IN12_DRIVER::init() {
     gpio_set_level(NEON, 0);
 
     write_595(0x0000); // 初始化显示 0000
-    gpio_set_level(HV_CTL, 1); // 默认开机开启高压
+    gpio_set_level(HV_CTL, 0); // 默认开机关闭高压
 }
 
 // 核心：使用移位和位与操作，直接推送 16 bit 数据
