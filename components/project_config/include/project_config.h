@@ -19,15 +19,15 @@
 #define HV_CTL_GPIO GPIO_NUM_1
 
 // WIFI_AP 配置
-#define WIFI_AP_SSID     "IN12_test"
-#define WIFI_AP_PASS     "12345678"
+#define WIFI_AP_SSID     "IN12"
+#define WIFI_AP_PASS     "in12clock"
 #define WIFI_AP_CHANNEL  1
 #define WIFI_AP_MAX_CONN 4
 #define WIFI_SCAN_MAX    10
 
 
 // mDNS 主机名：浏览器可通过 http://in12.local 访问
-#define MDNS_HOSTNAME         "in12test"
+#define MDNS_HOSTNAME         "in12"
 #define MDNS_INSTANCE_NAME    "IN12 Nixie Web Config"
 
 
